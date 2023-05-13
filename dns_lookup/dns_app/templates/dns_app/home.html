@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DNS Lookup</title>
+</head>
+<body>
+    <h1>DNS Lookup</h1>
+    <form method="post" action="{% url 'home' %}">
+        {% csrf_token %}
+        <input type="text" name="domain" placeholder="Введите доменное имя" required>
+        <button type="submit">Найти IP-адрес</button>
+    </form>
+</body>
+</html>

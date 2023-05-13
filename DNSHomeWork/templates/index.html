@@ -1,0 +1,11 @@
+<form method="get">
+    <label for="domain_name">Domain name:</label>
+    <input type="text" name="domain_name" id="domain_name">
+    <button type="submit">Search</button>
+</form>
+
+{% if ip_address %}
+    <p>IP address for {{ domain_name }} is {{ ip_address }}.</p>
+{% else %}
+    <p>No IP address found for {{ domain_name }}.</p>
+{% endif %}

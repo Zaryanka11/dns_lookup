@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  # Джанго - приложение (контейнер)
+  django_app:
+    # если хотим использовать модифицированный или свой образ
+    build: .
+    # какая команда будет выполняться при запуске нашего контейнера
+    command: python manage.py runserver 0.0.0.0:8123
+   # маппинг пути и файлов которые есть на компе локально и внутри нашего образа
+    volumes:
+      - ./:/usr/scr/app/
+    # какие порты мы открываем
+    ports:
+      - 8123:8123
+    # можем создать свой enf. не явным образом прописывать, а записать всё в какой-то файл и прокидывать значения через файл
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+  # База данных (постгрес)
+  db:
+    # готовый образ
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    # перекидываем данные окружения
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=030703
+      # в каком пути будем находиться наша база данныхы
+      - POSTGRES_DB=dev
+volumes:
+  postgres_data:
